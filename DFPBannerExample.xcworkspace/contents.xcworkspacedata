@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/vidhan/Downloads/InMobiAdapterForDFPBanner-master/DFPBannerExample.xcodeproj">
+      location = "group:DFPBannerExample.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

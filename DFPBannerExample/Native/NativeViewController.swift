@@ -50,11 +50,6 @@ class NativeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         versionLabel.text = GADRequest.sdkVersion()
-        guard let nibObjects = Bundle.main.loadNibNamed("UnifiedNativeAdView", owner: nil, options: nil),
-            let adView = nibObjects.first as? GADUnifiedNativeAdView else {
-                assert(false, "Could not load nib file for adView")
-        }
-        setAdView(adView)
         refreshAd(nil)
     }
 
@@ -78,13 +73,19 @@ class NativeViewController: UIViewController {
 
     /// Refreshes the native ad.
     @IBAction func refreshAd(_ sender: AnyObject!) {
+
+        nativeAdView?.removeFromSuperview()
+        guard let nibObjects = Bundle.main.loadNibNamed("UnifiedNativeAdView", owner: nil, options: nil),
+            let adView = nibObjects.first as? GADUnifiedNativeAdView else {
+                assert(false, "Could not load nib file for adView")
+        }
+        setAdView(adView)
         refreshAdButton.isEnabled = false
         videoStatusLabel.text = ""
         adLoader = GADAdLoader(adUnitID: adUnitID, rootViewController: self,
                                adTypes: [ .unifiedNative ], options: nil)
         adLoader.delegate = self
         let request = GADRequest()
-        request.testDevices = [""]
         adLoader.load(request)
     }
 
